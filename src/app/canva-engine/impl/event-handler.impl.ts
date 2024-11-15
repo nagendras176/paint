@@ -4,7 +4,6 @@ import { Observable, Subject, Subscribable, Subscriber } from "rxjs";
 
 export class CanvasEventHandler implements ICanvasEngineEventHandler{
 
-
     private mouseDownEvent: Subject<MouseEvent> = new Subject<MouseEvent>()
     private mouseMoveEvent: Subject<MouseEvent> = new Subject<MouseEvent>()
     private mouseUpEvent: Subject<MouseEvent> = new Subject<MouseEvent>()
