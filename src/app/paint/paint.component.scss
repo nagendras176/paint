@@ -1,0 +1,31 @@
+#paint-window{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+}
+
+#paint-window {
+    #paint-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid black;
+        cursor: crosshair;
+        background-color: whitesmoke;
+    }
+}
+
+#module-holder{
+    display: flex;
+    flex-direction: column;
+    width: 8vw;
+    height: 100vh;
+    position: absolute;
+    left: 0.5vw;
+    top: 0;
+    background-color: yellow;
+    padding: 10px;
+    border: 1px solid black;
+    z-index: 1;
+}
