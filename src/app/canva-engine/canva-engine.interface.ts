@@ -1,5 +1,4 @@
-export namespace ICanvasEngine {
-   interface ICanvasEngine {
+ 
+   export interface ICanvasEngine {
       new (canvasElement: HTMLCanvasElement): void;
    }
-}
