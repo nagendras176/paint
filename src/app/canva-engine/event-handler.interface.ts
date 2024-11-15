@@ -1,14 +1,14 @@
-import { Signal } from "@angular/core";
+import { Subscribable } from "rxjs";
 
 
 export interface ICanvasEngineEventHandler {
-        new (canvasElement: HTMLCanvasElement): void;
+       
         
-        onMouseDown: Signal<MouseEvent>;
-        
-        
-        onMouseMove: Signal<MouseEvent>;
+        onMouseDown: Subscribable<MouseEvent>
         
         
-        onMouseUp: Signal<MouseEvent>;
+        onMouseMove: Subscribable<MouseEvent>
+        
+        
+        onMouseUp: Subscribable<MouseEvent>
     }
