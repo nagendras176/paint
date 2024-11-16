@@ -1,6 +1,8 @@
 import { Component, createComponent, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import {PenComponent} from '../modules/pen/pen.component';
+import {PenComponent} from '../modules/modules/pen/pen.component';
 import { ModuleHolderComponent } from './module-holder/module-holder.component';
+import { EngineService } from '../engine/engine.service';
+import { ICanvasModuleClass } from '../modules/module.interface';
 
 @Component({
   selector: 'app-modules-holder',
@@ -13,12 +15,12 @@ export class ModulesHolderComponent implements OnInit {
 
   @ViewChild('moduleHolder', { read: ViewContainerRef, static: true }) moduleHolder!: ViewContainerRef;
 
-  public modules = [PenComponent, PenComponent, PenComponent];
+  public modules: ICanvasModuleClass[] = [];
 
-  constructor() { }
+  constructor(private engine: EngineService) { }
 
   ngOnInit(): void {
-    
+      this.modules = this.engine.getModules();
   }
      
 }

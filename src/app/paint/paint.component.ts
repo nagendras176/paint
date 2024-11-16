@@ -10,6 +10,7 @@ import { EngineService } from '../engine/engine.service';
   imports: [MatButtonModule,MatIconModule,ModulesHolderComponent],
   templateUrl: './paint.component.html',
   styleUrl: './paint.component.scss',
+  providers: [EngineService]
 })
 export class PaintComponent implements OnInit {
 
