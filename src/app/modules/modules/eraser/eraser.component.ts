@@ -145,6 +145,10 @@ export class EraserConfigDialog implements OnInit{
       this.dialogRef.close({size: this.size});
   }
 
+  public onCancel(){
+      this.dialogRef.close();
+  }
+
 
 }
 
