@@ -21,6 +21,12 @@ export class ModulesHolderComponent implements OnInit {
 
   ngOnInit(): void {
       this.modules = this.engine.getModules();
+      /**
+       * This is a workaround to start default module after all modules are loaded
+       */
+      setTimeout(() => {
+          this.engine.startDefaultModule();
+      },50);
   }
      
 }
