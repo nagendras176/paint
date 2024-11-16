@@ -17,29 +17,96 @@ export class PenComponent implements ICanvasModule{
 
     public static id = 'pen-module';
 
+    private _stop: boolean = true;
+
      constructor(private engine: EngineService){}
 
      public id: string = PenComponent.id;
 
-      public init(canvasContext: CanvasRenderingContext2D, events: any){
-          events.onMouseDown.subscribe((event: MouseEvent) => {
-              console.log('Pen module mouse down event');
-              canvasContext.beginPath();
-              canvasContext.arc(event.offsetX, event.offsetY, 5, 0, 2 * Math.PI);
-          });
-      }
+     
 
 
       public giveUpControl(){
           console.log('Pen module give up control');
       }
 
-      public start(){
+      public start(){ 
+
+        this._stop = false;
+
+
         
+        const events = this.engine.getEventHandler();
+        const canvasContext = this.engine.getCanvasContext();
+
+
+        this.preStartDrawing(events, canvasContext);
+
       }
 
       public stop(){
+            
       }
+
+      private weight: number = 4;
+
+
+      private drawLine(startX: number, startY: number, endX: number, endY: number, context: CanvasRenderingContext2D){
+          context.beginPath();
+          context.moveTo(startX, startY);
+          context.lineTo(endX, endY);
+          context.strokeStyle = 'black';
+          context.lineWidth = this.weight;
+          context.stroke();
+          context.closePath();
+      }
+
+      private currentX: number = 0;
+      private currentY: number = 0;
+      private isDrawing: boolean = false;
+
+      private preStartDrawing(events: any, context: CanvasRenderingContext2D){
+            const mouseDownSubscription = events.onMouseDown.subscribe((event: MouseEvent) => {
+                if(this._stop){
+                   mouseDownSubscription.unsubscribe();
+                    return;
+                }
+                this.currentX = event.clientX;
+                this.currentY = event.clientY;
+                this.isDrawing = true;
+                mouseDownSubscription.unsubscribe();
+                this.startDrawing(events, context);
+           });
+      }
+
+      private startDrawing(events: any, context: CanvasRenderingContext2D){
+        const mouseMoveSubscription = events.onMouseMove.subscribe((event: MouseEvent) => {
+            if(this._stop){
+                mouseMoveSubscription.unsubscribe();
+                return;
+            }
+            if(this.isDrawing){
+                this.drawLine(this.currentX, this.currentY, event.clientX, event.clientY, context);
+                this.currentX = event.clientX;
+                this.currentY = event.clientY;
+            }
+
+        });
+        this.stopDrawing(events);
+      }
+
+      private stopDrawing(events: any){
+        const mouseUpSubscription = events.onMouseUp.subscribe((event: MouseEvent) => {
+            if(this._stop){
+                mouseUpSubscription.unsubscribe();
+                return;
+            }
+            this.isDrawing = false;
+            mouseUpSubscription.unsubscribe();
+            this.preStartDrawing(events, this.engine.getCanvasContext());
+        });
+      }
+
 
 }
 

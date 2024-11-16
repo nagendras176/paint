@@ -40,14 +40,14 @@ export class PaintComponent implements OnInit {
 
       canvasElement.nativeElement.width = parentElementWidth * pixelRatio;
       canvasElement.nativeElement.height = parentElementHeight * pixelRatio;
-      canvasElement.nativeElement.style.width = `${parentElementWidth}px`;
-      canvasElement.nativeElement.style.height = `${parentElementHeight}px`;
+      
   }
 
   private getCanvasElement(elemRef: ElementRef<HTMLCanvasElement>): HTMLCanvasElement {
         const canvasElement: HTMLCanvasElement = this.getCanvasElementRef().nativeElement as HTMLCanvasElement;
         return canvasElement;
   }
+
 
 
 }

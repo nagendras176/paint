@@ -12,11 +12,10 @@
         left: 0;
         border: 1px solid black;
         cursor: crosshair;
-        background-color: whitesmoke;
-        border: 2vw solid black;
+        background-color: yellow;
     }
 }
 
 app-modules-holder{
-    z-index: 2;
+    z-index: 10;
 }

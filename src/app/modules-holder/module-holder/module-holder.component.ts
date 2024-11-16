@@ -28,6 +28,8 @@ export class ModuleHolderComponent  implements OnInit {
     const moduleComponent = this.module();
     this.moduleHolderDiv.clear();
     this.moduleComponentRef =  this.moduleHolderDiv.createComponent(moduleComponent);
+    const instance = this.moduleComponentRef.instance as ICanvasModule;
+    this.engine.registerActiveModule(instance);
 
   }
 

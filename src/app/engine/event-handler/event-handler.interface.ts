@@ -1,14 +1,14 @@
-import { Subscribable } from "rxjs";
+import { Observable, Subscribable } from "rxjs";
 
 
 export interface ICanvasEngineEventHandler {
        
         
-        onMouseDown: Subscribable<MouseEvent>
+        onMouseDown: Observable<MouseEvent>
         
         
-        onMouseMove: Subscribable<MouseEvent>
+        onMouseMove: Observable<MouseEvent>
         
         
-        onMouseUp: Subscribable<MouseEvent>
+        onMouseUp: Observable<MouseEvent>
     }

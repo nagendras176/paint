@@ -8,9 +8,9 @@ export class CanvasEventHandler implements ICanvasEngineEventHandler{
     private mouseMoveEvent: Subject<MouseEvent> = new Subject<MouseEvent>()
     private mouseUpEvent: Subject<MouseEvent> = new Subject<MouseEvent>()
 
-    public onMouseDown: Subscribable <MouseEvent> = this.mouseDownEvent.asObservable()
-    public onMouseMove: Subscribable<MouseEvent> = this.mouseMoveEvent.asObservable()
-    public onMouseUp: Subscribable<MouseEvent> = this.mouseUpEvent.asObservable()
+    public onMouseDown: Observable <MouseEvent> = this.mouseDownEvent.asObservable()
+    public onMouseMove: Observable<MouseEvent> = this.mouseMoveEvent.asObservable()
+    public onMouseUp: Observable<MouseEvent> = this.mouseUpEvent.asObservable()
     
     
     constructor(canvasElement: HTMLCanvasElement){
