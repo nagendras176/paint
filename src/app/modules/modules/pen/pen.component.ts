@@ -12,7 +12,7 @@ import {
     MatDialogRef,
     MatDialogTitle,
   } from '@angular/material/dialog';
-import { ColorPickerComponent } from '../../../commons/components/color-picker/color-picker.component';
+
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -147,7 +147,7 @@ export class PenComponent implements ICanvasModule{
     styleUrl: './pen.config.dialog.scss',
     standalone: true,
     imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, 
-      ColorPickerComponent, MatIconModule, MatSliderModule,FormsModule, MatInputModule, MatFormFieldModule],
+       MatIconModule, MatSliderModule,FormsModule, MatInputModule, MatFormFieldModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
   })
   export class PenConfigDialog implements OnInit{
