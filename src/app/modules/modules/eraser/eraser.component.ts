@@ -21,7 +21,7 @@ export class EraserComponent implements OnInit, ICanvasModule{
    
    constructor(private engine: EngineService){}
 
-    private _size: number = 10;
+    private _size: number = 15;
 
     ngOnInit(): void {
         
@@ -32,7 +32,7 @@ export class EraserComponent implements OnInit, ICanvasModule{
       this._stop = false;
       const events = this.engine.getEventHandler();
       const canvasContext = this.engine.getCanvasContext();
-
+      this.setCursor();
       this.preErase(events, canvasContext);
     }
 
@@ -91,5 +91,12 @@ export class EraserComponent implements OnInit, ICanvasModule{
 
     public onClick(event: MouseEvent){
         this.engine.notifyStart(this.id);
+    }
+
+    public setCursor(): void {
+       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${this._size}" height="${this._size}" stroke="black" stroke-width="2"><rect x="0" y="0" width="${this._size}" height="${this._size}" fill="yellow"></rect></svg>`;
+       const cursorUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+       const cursor = `url(${cursorUrl}) ${this._size/2} ${this._size/2}, auto`;
+        this.engine.setCanvasWindowCursor(cursor)
     }
 }
