@@ -13,9 +13,10 @@
         border: 1px solid black;
         cursor: crosshair;
         background-color: yellow;
+        z-index: 0;
     }
 }
 
 app-modules-holder{
-    z-index: 10;
+    z-index: -1;
 }
