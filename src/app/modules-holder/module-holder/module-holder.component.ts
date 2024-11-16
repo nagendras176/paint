@@ -29,5 +29,10 @@ export class ModuleHolderComponent  implements OnInit {
     this.moduleComponentRef =  this.moduleHolderDiv.createComponent(moduleComponent);
 
   }
+
+  onClick(event: MouseEvent) {
+    event.stopPropagation();
+  
+  }
    
 }

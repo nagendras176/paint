@@ -1,4 +1,4 @@
-<div cdkDrag #moduleHolder>
+<div cdkDrag #moduleHolder (click)="onClick($event)">
     <!--Ideally I must have referred #moduleHolder to create a 
         child component but looks like Angular latest release has
         a bug as it creating child component outside the parent component
