@@ -1,8 +1,10 @@
 import { Directive } from "@angular/core";
 
+;
+
 export interface ICanvasModule extends Directive{
     id: string;
-    init(): void;
+    init(canvasContext: CanvasRenderingContext2D, events: any): void;
     giveUpControl(): void;
 }
 
