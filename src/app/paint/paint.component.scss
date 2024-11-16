@@ -1,8 +1,9 @@
 #paint-window{
     display: flex;
-    flex-direction: row;
-    height: 100vh;
-    width: 100vw;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content:  space-around;
 }
 
 #paint-window {
@@ -12,11 +13,13 @@
         left: 0;
         border: 1px solid black;
         cursor: crosshair;
-        background-color: yellow;
-        z-index: 0;
     }
 }
 
 app-modules-holder{
-    z-index: -1;
+  z-index: 2;
+}
+
+app-module-holder{
+    margin-left: 10px;
 }

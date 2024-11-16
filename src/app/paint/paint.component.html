@@ -1,4 +1,6 @@
 <div id="paint-window">
-   <app-modules-holder></app-modules-holder>
    <canvas id="paint-canvas" #canvasBoard></canvas>
+   @for (module of modules; track $index) {
+       <app-module-holder [module]="module" class="module-holder"></app-module-holder>
+   }
 </div>
