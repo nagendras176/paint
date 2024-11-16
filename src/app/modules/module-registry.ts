@@ -7,9 +7,9 @@ export class ModuleRegistry {
     private static _modules: ICanvasModuleClass[] = [];
     private static _defaultModuleId?: string;
 
-    public static registerModule(module: ICanvasModuleClass, options: {default: boolean}): void {
+    public static registerModule(module: ICanvasModuleClass, options?: {default: boolean}): void {
         ModuleRegistry._modules.push(module);
-        if(options.default) {
+        if(options && options.default) {
             if(this._defaultModuleId) {
                 throw new Error('Default module already set');
             }
