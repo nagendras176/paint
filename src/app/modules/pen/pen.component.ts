@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ICanvasModule } from '../module.interface';
+import { EngineService } from '../../engine/engine.service';
+import { ModuleRegistry } from '../module-registry';
+
 
 @Component({
   selector: 'app-pen',
@@ -12,9 +15,11 @@ import { ICanvasModule } from '../module.interface';
 })
 export class PenComponent implements ICanvasModule{
 
-     constructor(){}
+    public static id = 'pen-module';
 
-     public id: string = 'pen-module';
+     constructor(private engine: EngineService){}
+
+     public id: string = PenComponent.id;
 
       public init(canvasContext: CanvasRenderingContext2D, events: any){
           events.onMouseDown.subscribe((event: MouseEvent) => {
@@ -29,4 +34,14 @@ export class PenComponent implements ICanvasModule{
           console.log('Pen module give up control');
       }
 
+      public start(){
+        
+      }
+
+      public stop(){
+      }
+
 }
+
+
+ModuleRegistry.registerModule(PenComponent);
