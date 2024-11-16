@@ -93,5 +93,9 @@ private startModule(id: string): void {
     }
 }
 
+public startDefaultModule(): void {
+    this.notifyStart(ModuleRegistry.getDefaultModuleId());
+}
+
 
 }
