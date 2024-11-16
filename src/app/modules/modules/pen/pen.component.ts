@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ICanvasModule } from '../module.interface';
-import { EngineService } from '../../engine/engine.service';
-import { ModuleRegistry } from '../module-registry';
+import { ICanvasModule } from '../../module.interface';
+import { EngineService } from '../../../engine/engine.service';
+import { ModuleRegistry } from '../../module-registry';
 
 
 @Component({
@@ -43,5 +43,3 @@ export class PenComponent implements ICanvasModule{
 
 }
 
-
-ModuleRegistry.registerModule(PenComponent);
