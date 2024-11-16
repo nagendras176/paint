@@ -1,4 +1,5 @@
 import { ICanvasModule, ICanvasModuleClass } from "./module.interface";
+import  {modulesList} from './modules/modules.list'
 
 
 
@@ -30,3 +31,7 @@ export class ModuleRegistry {
     }
 
 }
+
+modulesList.forEach(module => {
+    ModuleRegistry.registerModule(module.module, {default: module.default});
+})
