@@ -1,8 +1,13 @@
-import { Component , OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component , inject, OnInit} from '@angular/core';
 import { ICanvasModule } from '../../module.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { EngineService } from '../../../engine/engine.service';
+import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MatSliderModule } from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-eraser',
@@ -18,6 +23,8 @@ export class EraserComponent implements OnInit, ICanvasModule{
    public id: string = EraserComponent.id;
 
    private _stop: boolean = true;
+
+   private dialog = inject(MatDialog);
    
    constructor(private engine: EngineService){}
 
@@ -91,6 +98,14 @@ export class EraserComponent implements OnInit, ICanvasModule{
 
     public onClick(event: MouseEvent){
         this.engine.notifyStart(this.id);
+
+        const dialogRef: MatDialogRef<EraserConfigDialog>=this.dialog.open(EraserConfigDialog);
+        dialogRef.afterClosed().subscribe((result) => {
+            if(result){
+                this._size = result.size;
+                this.setCursor();
+            }
+        });
     }
 
     public setCursor(): void {
@@ -100,3 +115,36 @@ export class EraserComponent implements OnInit, ICanvasModule{
         this.engine.setCanvasWindowCursor(cursor)
     }
 }
+
+
+
+@Component({
+  selector: 'pen-config-dialog',
+  templateUrl: './eraser.config.dialog.html',
+  styleUrl: './eraser.config.dialog.scss',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, 
+     MatIconModule, MatSliderModule,FormsModule, MatInputModule, MatFormFieldModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class EraserConfigDialog implements OnInit{
+  readonly dialogRef = inject(MatDialogRef<EraserConfigDialog>);
+
+  constructor(){}
+
+  ngOnInit(): void {
+     
+  }
+
+  public value: number = 0;
+  public get size(): number{
+      return 15 + this.value;
+  }
+
+  public onPick(){
+      this.dialogRef.close({size: this.size});
+  }
+
+
+}
+
