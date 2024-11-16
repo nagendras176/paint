@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Pick your Pen <mat-icon>edit</mat-icon></h2>
+<mat-dialog-content>
+   <div class="main">
+    <div class="pen-size">
+      <div>
+        <h4>Pen Size:</h4>
+        <div class="pen-size-set">
+          <svg id="pen-pointer">
+            <circle [attr.r]="size" fill="white"></circle>
+          </svg>
+          <mat-slider  min="1" max="50" step="1">
+            <input matSliderThumb [(ngModel)]="value">
+          </mat-slider>
+        </div>
+      </div>
+    </div>
+    <div class="pen-color">
+      
+        <h4>Pen Color:</h4>
+        <div style="display: flex;flex-direction: row; justify-content: center;">
+          <div class="selected-color" [style.background]="getColor([r,g,b])"></div>
+        </div>
+        <div class="color-input">
+          <mat-form-field appearance="outline">
+            <mat-label color="red">Redness</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="r">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label color="green">Green</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="g">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label color="blue">Blue</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="b">
+          </mat-form-field>
+        </div>
+        <div class="pen-color-set">
+           @for (color of colorSet; track $index) {
+            <div class="pen-i-color" [style.background]="getColor(color)" (click)="setColor(color)"></div>
+           }
+        </div>
+    
+    </div>
+   </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button  cdkFocusInitial (click)="onPick()">Pick</button>
+</mat-dialog-actions>

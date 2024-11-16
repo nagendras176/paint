@@ -1,0 +1,68 @@
+.main{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.pen-size-set{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+
+
+#pen-pointer{
+    height: 15%;
+    width: 15%;
+}
+
+#pen-pointer{
+    height: 9vh;
+}
+
+#pen-pointer{
+    circle{
+        cy: 38%;
+        cx: 24%
+    }
+}
+
+
+.pen-color{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 1vh;
+}
+
+.selected-color{
+    border: 3px solid greenyellow;
+    width: 3.2vw;
+    height: 3.2vw;
+}
+
+.pen-color-set{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.pen-i-color{
+    border: 1px solid white;
+    width: 2vw;
+    height: 2vw;
+    cursor: pointer;
+}
+
+.pen-i-color:hover{
+    border: 1px solid greenyellow;
+}
+
+.color-input{
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+}
