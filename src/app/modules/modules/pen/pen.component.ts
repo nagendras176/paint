@@ -49,21 +49,16 @@ export class PenComponent implements ICanvasModule{
       }
 
       public start(){ 
-
         this._stop = false;
-
-
-        
         const events = this.engine.getEventHandler();
         const canvasContext = this.engine.getCanvasContext();
-
-
+        this.setCursor();
         this.preStartDrawing(events, canvasContext);
 
       }
 
       public stop(){
-            
+            this._stop = true;
       }
 
       private weight: number = 4;
@@ -132,9 +127,21 @@ export class PenComponent implements ICanvasModule{
             if(result){
                 this._penColor = result.color;
                 this._penSize = result.size;
+                this.setCursor();
             }
         });
+    
   }
+
+     private setCursor(){
+        const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <circle cx="16" cy="16" r="${this._penSize}" fill="${this._penColor}" />
+</svg>`;
+const encodedSVG = `data:image/svg+xml;base64,${btoa(svg)}`;
+const cursor = `url(${encodedSVG}) 16 16, auto`;
+  this.engine.setCanvasWindowCursor(cursor)
+    }
 
 
 }
