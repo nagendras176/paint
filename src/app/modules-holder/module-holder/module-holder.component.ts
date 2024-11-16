@@ -1,6 +1,7 @@
 import { Component, input, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import { ICanvasModule } from '../../modules/module.interface';
+import { EngineService } from '../../engine/engine.service';
 
 @Component({
   selector: 'app-module-holder',
@@ -20,7 +21,7 @@ export class ModuleHolderComponent  implements OnInit {
 
   private moduleComponentRef: any;
 
-  constructor() { }
+  constructor(private engine: EngineService) { }
 
   ngOnInit(): void {
     
