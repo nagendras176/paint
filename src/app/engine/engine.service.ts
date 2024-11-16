@@ -99,5 +99,9 @@ public startDefaultModule(): void {
     this.notifyStart(ModuleRegistry.getDefaultModuleId());
 }
 
+public setCanvasWindowCursor(cursor: string): void {
+    this._canvasElement?.style.setProperty('cursor', cursor);
+}
+
 
 }
