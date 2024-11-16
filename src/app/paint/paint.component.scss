@@ -13,19 +13,10 @@
         border: 1px solid black;
         cursor: crosshair;
         background-color: whitesmoke;
+        border: 2vw solid black;
     }
 }
 
-#module-holder{
-    display: flex;
-    flex-direction: column;
-    width: 8vw;
-    height: 100vh;
-    position: absolute;
-    left: 0.5vw;
-    top: 0;
-    background-color: yellow;
-    padding: 10px;
-    border: 1px solid black;
-    z-index: 1;
+app-modules-holder{
+    z-index: 2;
 }
