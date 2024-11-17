@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component , inject, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component , Inject, inject, OnInit} from '@angular/core';
 import { ICanvasModule } from '../../module.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-eraser',
@@ -99,7 +100,9 @@ export class EraserComponent implements OnInit, ICanvasModule{
     public onClick(event: MouseEvent){
         this.engine.notifyStart(this.id);
 
-        const dialogRef: MatDialogRef<EraserConfigDialog>=this.dialog.open(EraserConfigDialog);
+        const dialogRef: MatDialogRef<EraserConfigDialog>=this.dialog.open(EraserConfigDialog, {
+            data: {size: this._size}
+        });
         dialogRef.afterClosed().subscribe((result) => {
             if(result){
                 this._size = result.size;
@@ -130,10 +133,10 @@ export class EraserComponent implements OnInit, ICanvasModule{
 export class EraserConfigDialog implements OnInit{
   readonly dialogRef = inject(MatDialogRef<EraserConfigDialog>);
 
-  constructor(){}
+  constructor(@Inject(MAT_DIALOG_DATA) private  data: {size: number}){}
 
   ngOnInit(): void {
-     
+     this.value = (this.data?.size && this.data.size >= 15) ? this.data.size - 15 : 0;
   }
 
   public value: number = 0;
