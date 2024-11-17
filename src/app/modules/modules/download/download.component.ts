@@ -27,28 +27,31 @@ export class DownloadComponent implements OnInit, ICanvasModule {
   public start(){
     this._start = true;
     this.downloadCanvasAsImage();
-    this.engine.notifyStop(this.id); 
   }
 
   public stop(){
     this._start = false;
   }
 
-  public onClick(){
+  public onClick(event: MouseEvent){
     this.engine.notifyStart(this.id);
   }
 
   private downloadCanvasAsImage(){
-    const context = this.engine.getCanvasContext() as CanvasRenderingContext2D;
-    context.canvas.toBlob((blob)=>{
-      const url = URL.createObjectURL(blob as Blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'image.png';
-      a.click();
-      URL.revokeObjectURL(url);
-    }, 'image/png', 1);
-    
+    if(this._start){
+      const context = this.engine.getCanvasContext() as CanvasRenderingContext2D;
+      context.canvas.toBlob((blob)=>{
+        const url = URL.createObjectURL(blob as Blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'image.png';
+        a.click();
+        URL.revokeObjectURL(url);
+        this.engine.notifyStop(this.id); 
+      }, 'image/png', 1);
+     
+    }
+   
   }
  
 }
