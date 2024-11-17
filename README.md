@@ -54,7 +54,7 @@ Click on the image to download the showcase video.
 3. **Access Application**  
    Open [http://localhost:4200](http://localhost:4200) in your browser.  
    The app reloads automatically on source file changes.
-```
+
 
 
 ## Build
