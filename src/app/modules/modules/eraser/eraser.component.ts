@@ -152,6 +152,10 @@ export class EraserConfigDialog implements OnInit{
       this.dialogRef.close();
   }
 
+  public eraserSizeInPercentage(size: number): string {
+      return `${(Number(size/65)*100).toFixed(1)} %`;
+  }
+
 
 }
 
