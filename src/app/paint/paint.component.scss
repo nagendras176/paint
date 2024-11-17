@@ -23,3 +23,22 @@ app-modules-holder{
 app-module-holder{
     margin-left: 10px;
 }
+
+#github-link{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+    background-color: white;
+}
+
+
+#github-link{
+    img{
+        width: 35px;
+        height: 35px;
+    }
+}

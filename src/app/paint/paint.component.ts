@@ -81,6 +81,11 @@ export class PaintComponent implements OnInit {
       },100);
   }
 
+  public openGithub(): void {
+    const url = 'https://github.com/nagendras176/paint';
+    window.open(url, '_blank');
+  }
+
 
 
 }

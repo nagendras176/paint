@@ -1,4 +1,7 @@
 <div id="paint-window">
+   <button mat-fab id="github-link" (click)="openGithub()">
+       <img src="github.icon.svg"/>
+   </button>
    <canvas id="paint-canvas" #canvasBoard></canvas>
    @for (module of modules; track $index) {
        <app-module-holder [module]="module" class="module-holder"></app-module-holder>
