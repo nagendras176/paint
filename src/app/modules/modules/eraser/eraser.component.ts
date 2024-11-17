@@ -88,7 +88,7 @@ export class EraserComponent implements OnInit, ICanvasModule{
     }
 
     erase(context: CanvasRenderingContext2D): void {
-        context.clearRect(this.currentX, this.currentY, this._size, this._size);
+        context.clearRect(this.currentX - Number(this._size/2), this.currentY- Number(this._size/2), this._size, this._size);
     }
 
 
