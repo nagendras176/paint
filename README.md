@@ -71,9 +71,9 @@ export interface ICanvasModule extends Directive {
 }
 ```
 
-#### Example: Pen Module
+#### Example: Clear Board Module
 
-The **Pen Module** (`PenComponent`) is an example of a module that allows users to draw on the canvas. It implements the `ICanvasModule` interface and interacts with the Engine Service to receive canvas context and mouse events.
+The **Clear Board Module** (`ClearBoardComponent`) is an example of a module that allows users to clear the content on the canvas board. It implements the `ICanvasModule` interface and interacts with the Engine Service to cordinate and make action.
 
 Key features:
 
