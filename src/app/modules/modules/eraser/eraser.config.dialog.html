@@ -6,9 +6,11 @@
       </div>
       <div>
          <div class="set-eraser">
+            <div class="set-eraser-container">
              <div class="sample-eraser" [style.height.px]="size" [style.width.px]="size">
-               {{eraserSizeInPercentage(size)}}
              </div>
+             <span class="sample-eraser-size"> {{eraserSizeInPercentage(size)}}</span>
+            </div>
          </div>
          <div class="size-slider">
             <mat-slider  min="1" max="50" step="1">
