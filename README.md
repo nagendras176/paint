@@ -1,31 +1,28 @@
-# Paint
+# Mini Paint Software Architecture
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+This document provides an overview of the architecture for the Mini Paint software, built using Angular 18 and the HTML Canvas element. The application is designed to be modular, allowing developers to easily add new functionalities by implementing predefined interfaces.
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Overview](#overview)
+- [Showcase](#showcase-video)
+- [Installation](#development-server)
+- [Building](#build)
+- [Architecture Components](#architecture-components)
+  - [Engine Service](#engine-service)
+  - [Modules](#modules)
+    - [Module Interface](#module-interface)
+    - [Example: Pen Module](#example-pen-module)
+  - [Module Registry](#module-registry)
+- [Adding a New Module](#adding-a-new-module)
+- [Diagrams](#diagrams)
+  - [High-Level Architecture](#high-level-architecture)
+  - [Module Interaction Flow](#module-interaction-flow)
+- [Conclusion](#conclusion)
 
-## Code scaffolding
+## Overview
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
+The Mini Paint software is a web-based drawing application that leverages the HTML Canvas API. It is built with modularity in mind, enabling developers to extend its functionality by adding new tools and features as separate modules.
 
 ## Showcase Video
 
@@ -33,3 +30,149 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 Click on the image to download the showcase video.
 
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+
+## Architecture Components
+
+### Engine Service
+
+The **Engine Service** (`EngineService`) is the core of the application. It manages the canvas element, provides the 2D rendering context, handles mouse events, and coordinates the activation and deactivation of modules.
+
+Key responsibilities:
+
+- Initializes the canvas and rendering context.
+- Registers available modules.
+- Manages active modules and ensures only one module is active at a time.
+- Provides utilities like setting the cursor style.
+
+
+
+### Modules
+
+Modules are self-contained units of functionality that implement specific drawing tools or features, such as a pen, eraser, or download function. Each module adheres to a common interface, allowing the Engine Service to manage them uniformly.
+
+#### Module Interface
+
+Modules implement the `ICanvasModule` interface, ensuring they provide methods for starting and stopping their functionality.
+
+```typescript
+export interface ICanvasModule extends Directive {
+  id: string;
+  start(): void;
+  stop(): void;
+}
+```
+
+#### Example: Pen Module
+
+The **Pen Module** (`PenComponent`) is an example of a module that allows users to draw on the canvas. It implements the `ICanvasModule` interface and interacts with the Engine Service to receive canvas context and mouse events.
+
+Key features:
+
+- Subscribes to mouse events to handle drawing.
+- Configures pen properties like color and size.
+- Updates cursor to reflect pen settings.
+
+```typescript
+@Component({
+  selector: 'app-clear-board',
+  standalone: true,
+  imports: [MatButtonModule, MatIconModule],
+  templateUrl: './clear-board.component.html',
+  styleUrl: './clear-board.component.scss'
+})
+export class ClearBoardComponent implements OnInit, ICanvasModule{
+
+  public static id= 'clear-board';
+
+  public id = ClearBoardComponent.id;
+
+  constructor(private engine: EngineService) { }
+
+  private _stop: boolean = true;
+
+  ngOnInit(): void {
+  }
+
+
+  public start(): void {
+      this._stop = false;
+      this.clearBoard();  
+  }
+
+
+  public stop(): void {
+      this._stop = true;
+  }
+
+  private clearBoard(): void {
+     if(!this._stop) {
+        const canvasContext = this.engine.getCanvasContext();
+        canvasContext.clearRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
+        this.engine.notifyStop(this.id);
+     }
+  }
+
+
+  public onClick(): void {
+      this.engine.notifyStart(this.id);
+  }
+
+}
+```
+
+### Module Registry
+
+The **Module Registry** maintains a list of all available modules and specifies which one is the default. Modules are registered by adding them to the `modulesList`.
+
+```typescript
+import { PenComponent } from './pen/pen.component';
+import { EraserComponent } from './eraser/eraser.component';
+// ... [Other imports]
+
+export const modulesList = [
+  {
+    module: PenComponent,
+    default: true
+  },
+  {
+    module: EraserComponent,
+    default: false
+  },
+  // ... [Other modules]
+];
+```
+
+## Adding a New Module
+
+To add a new module:
+
+1. **Implement the `ICanvasModule` Interface**: Create a new component that implements the `ICanvasModule` interface.
+2. **Use Engine Service Utilities**: Inject the `EngineService` to access canvas context and event handlers.
+3. **Register the Module**: Add the new module to the `modulesList` in the Module Registry.
+
+## Diagrams
+
+### High-Level Architecture
+
+![High Level Arch ](https://raw.githubusercontent.com/nagendras176/public-asset/refs/heads/main/Screenshot%202024-11-18%20at%2012.31.23%20AM.png)
+
+### Module Interaction Flow
+
+![Module Interaction](https://raw.githubusercontent.com/nagendras176/public-asset/refs/heads/main/Screenshot%202024-11-18%20at%2012.30.20%20AM.png)
+
+## Conclusion
+
+The modular architecture of the Mini Paint software allows for flexible extension and maintenance. By adhering to the `ICanvasModule` interface and utilizing the Engine Service, developers can seamlessly add new tools and functionalities to enhance the application.
+
+---
+
+**Note**: For more detailed implementation examples and guidelines, please refer to the source code provided in the repository.
