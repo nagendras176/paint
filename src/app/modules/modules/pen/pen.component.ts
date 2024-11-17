@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ICanvasModule } from '../../module.interface';
 import { EngineService } from '../../../engine/engine.service';
 import {MatSliderModule} from '@angular/material/slider';
 import {
+    MAT_DIALOG_DATA,
     MatDialog,
     MatDialogActions,
     MatDialogClose,
@@ -36,7 +37,7 @@ export class PenComponent implements ICanvasModule{
 
      public id: string = PenComponent.id;
 
-     private _penColor: string = 'black';
+     private _penColor: string = `rgb(0,0,0)`;
      private _penSize: number = 2;
 
      readonly dialog = inject(MatDialog);
@@ -49,24 +50,18 @@ export class PenComponent implements ICanvasModule{
       }
 
       public start(){ 
-
         this._stop = false;
-
-
-        
         const events = this.engine.getEventHandler();
         const canvasContext = this.engine.getCanvasContext();
-
-
+        this.setCursor();
         this.preStartDrawing(events, canvasContext);
 
       }
 
       public stop(){
-            
+            this._stop = true;
       }
 
-      private weight: number = 4;
 
 
       private drawLine(startX: number, startY: number, endX: number, endY: number, context: CanvasRenderingContext2D){
@@ -127,14 +122,31 @@ export class PenComponent implements ICanvasModule{
 
       public onClick(event: MouseEvent){
         this.engine.notifyStart(this.id);
-        const dialogRef: MatDialogRef<PenConfigDialog>=this.dialog.open(PenConfigDialog);
+        const dialogRef: MatDialogRef<PenConfigDialog>=this.dialog.open(PenConfigDialog, {
+            data: {
+                color: this._penColor,
+                size: this._penSize
+            }
+        });
         dialogRef.afterClosed().subscribe((result) => {
             if(result){
                 this._penColor = result.color;
                 this._penSize = result.size;
+                this.setCursor();
             }
         });
+    
   }
+
+     private setCursor(){
+        const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <circle cx="16" cy="16" r="${this._penSize}" fill="${this._penColor}" />
+</svg>`;
+const encodedSVG = `data:image/svg+xml;base64,${btoa(svg)}`;
+const cursor = `url(${encodedSVG}) 16 16, auto`;
+  this.engine.setCanvasWindowCursor(cursor)
+    }
 
 
 }
@@ -153,10 +165,19 @@ export class PenComponent implements ICanvasModule{
   export class PenConfigDialog implements OnInit{
     readonly dialogRef = inject(MatDialogRef<PenConfigDialog>);
 
-    constructor(){}
+    constructor(@Inject(MAT_DIALOG_DATA) private data : {
+        color: string,
+        size: number
+    }){}
 
     ngOnInit(): void {
-       
+        if(this.data?.color){
+            const rgb = this.rgbStringToNumber(this.data.color);
+            this.setColor(rgb);
+        }
+        if(this.data?.size){
+            this.value = (this.data.size - 1)/25*100;
+        }
     }
 
     public value: number = 1;
@@ -182,7 +203,10 @@ export class PenComponent implements ICanvasModule{
     }
 
     private rgbStringToNumber(rgb: string){
-        const values = rgb.split(',');
+        const values = rgb.match(/\d+/g);
+        if(!values){
+            return [0,0,0];
+        }
         return values.map((value) => Number(value));
     }
 
