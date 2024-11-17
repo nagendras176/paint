@@ -26,8 +26,8 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-
 ## Showcase Video
 
-[![Video Title](https://raw.githubusercontent.com/nagendras176/public-asset/refs/heads/main/Screenshot%202024-11-17%20at%2011.56.51%20PM.png)](https://github.com/nagendras176/public-asset/raw/refs/heads/main/Paint%20Application%20Showcase%20with%20Angular.mp4)
-
+<video src="https://github.com/nagendras176/public-asset/raw/refs/heads/main/Paint%20Application%20Showcase%20with%20Angular.mp4" controls="controls" style="max-width: 100%;">
+    Your browser does not support the video tag.
+</video>
