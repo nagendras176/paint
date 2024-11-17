@@ -68,8 +68,8 @@ public notifyStart(id: string): void {
        return;
    } 
    this.stopModule(this._activeModuleId as string);
-   this.startModule(id);
    this._activeModuleId = id;
+   this.startModule(id);
 }
 
 
