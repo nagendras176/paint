@@ -32,7 +32,29 @@ Click on the image to download the showcase video.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```markdown
+# Angular Development Setup with Node.js 20
+
+## Steps
+
+1. **Install Dependencies**  
+   Run:
+   ```bash
+   npm install
+   ```
+   Installs all packages from `package.json`.
+
+2. **Start Dev Server**  
+   Run:
+   ```bash
+   ng serve
+   ```
+   Starts the development server and watches for file changes.
+
+3. **Access Application**  
+   Open [http://localhost:4200](http://localhost:4200) in your browser.  
+   The app reloads automatically on source file changes.
+```
 
 
 ## Build
