@@ -24,12 +24,15 @@ export class ModuleHolderComponent  implements OnInit {
   constructor(private engine: EngineService) { }
 
   ngOnInit(): void {
-    
+    try{
     const moduleComponent = this.module();
     this.moduleHolderDiv.clear();
     this.moduleComponentRef =  this.moduleHolderDiv.createComponent(moduleComponent);
     const instance = this.moduleComponentRef.instance as ICanvasModule;
     this.engine.registerActiveModule(instance);
+    } catch (error) {
+      console.error('Error while creating module', error);
+    }
 
   }
 
