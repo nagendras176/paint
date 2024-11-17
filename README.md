@@ -1,6 +1,6 @@
 # Mini Paint Software Architecture
 
-This document provides an overview of the architecture for the Mini Paint software, built using Angular 18 and the HTML Canvas element. The application is designed to be modular, allowing developers to easily add new functionalities by implementing predefined interfaces.
+This document provides an overview of the architecture for the Mini Paint software, built using Angular 18 and the HTML Canvas element. The application is designed to be modular, allowing developers to easily add new functionalities by implementing predefined interfaces. 
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ This document provides an overview of the architecture for the Mini Paint softwa
 
 ## Overview
 
-The Mini Paint software is a web-based drawing application that leverages the HTML Canvas API. It is built with modularity in mind, enabling developers to extend its functionality by adding new tools and features as separate modules.
+The Mini Paint software is a web-based drawing application that leverages the HTML Canvas API. It is built with modularity in mind, enabling developers to extend its functionality by adding new tools and features as separate modules. Live app is hosted in : [(https://nagendras176.github.io/)]
 
 ## Showcase Video
 
