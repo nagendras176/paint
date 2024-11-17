@@ -14,9 +14,9 @@ export class CanvasEventHandler implements ICanvasEngineEventHandler{
     
     
     constructor(canvasElement: HTMLCanvasElement){
-        canvasElement.addEventListener('mousedown', (event: MouseEvent) => this.mouseDownEvent.next(event))
-        canvasElement.addEventListener('mousemove', (event: MouseEvent) => this.mouseMoveEvent.next(event))
-        canvasElement.addEventListener('mouseup', (event: MouseEvent) => this.mouseUpEvent.next(event))
+        canvasElement.addEventListener('pointerdown', (event: MouseEvent) => this.mouseDownEvent.next(event))
+        canvasElement.addEventListener('pointermove', (event: MouseEvent) => this.mouseMoveEvent.next(event))
+        canvasElement.addEventListener('pointerup', (event: MouseEvent) => this.mouseUpEvent.next(event))
     }
 
     
